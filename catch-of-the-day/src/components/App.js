@@ -11,6 +11,23 @@ class App extends React.Component {
     order: {}
   };
 
+  componentDidMount() {
+    //first reinstate local localStorage
+    const { params } = this.props.match
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if(localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef)});
+    }
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.order)
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
+  }
+
+  componentWillUnmount() {
+  }
+
 /* functions */
   addFish = (fish) => {
     console.log(fish)
