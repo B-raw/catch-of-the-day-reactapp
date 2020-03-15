@@ -5,6 +5,22 @@ class Fish extends React.Component {
   render() {
     const {image, name, price, desc, status} = this.props.details;
     const isAvailable = status === "available";
+    // if no order, noOrder will be true
+    const noOrder = !this.props.order
+    const props = this.props
+
+    function decreaseOrderButton() {
+      if (noOrder) {
+        return
+      }
+      return (
+        <button
+          onClick={() => {props.decreaseOrder(props.index)}}
+          >
+          Decrease from Cart
+        </button>
+      )
+    }
 
     return (
       <li className="menu-fish">
@@ -20,6 +36,7 @@ class Fish extends React.Component {
           >
           {isAvailable ? "Add To Cart" : "Sold Out"}
         </button>
+        {decreaseOrderButton()}
       </li>
     )
   }
